@@ -7,7 +7,6 @@
     /* ========================= */
 
     const COEFFICIENT = 0.0061;
-
     const DEFAULT_HEIGHT_RATIO = 0.60;
 
 
@@ -18,9 +17,7 @@
     const tg = window.Telegram?.WebApp;
 
     if (tg) {
-
         tg.ready();
-
         tg.expand();
 
         if (typeof tg.setHeaderColor === "function") {
@@ -43,7 +40,6 @@
     const calculatorScreen =
         document.getElementById("calculator-screen");
 
-
     const continueButton =
         document.getElementById("continue-button");
 
@@ -52,7 +48,6 @@
 
     const resetButton =
         document.getElementById("reset-button");
-
 
     const lengthInput =
         document.getElementById("length");
@@ -66,18 +61,14 @@
     const caratInput =
         document.getElementById("carat");
 
-
     const caratResult =
         document.getElementById("carat-result");
 
     const standardSize =
         document.getElementById("standard-size");
 
-
     const cutButtons =
-        document.querySelectorAll(
-            ".cut-button[data-cut]"
-        );
+        document.querySelectorAll(".cut-button[data-cut]");
 
 
     /* ========================= */
@@ -85,7 +76,6 @@
     /* ========================= */
 
     let selectedCut = "round";
-
     let updating = false;
 
 
@@ -94,34 +84,25 @@
     /* ========================= */
 
     function parseNumber(value) {
-
         if (value === null || value === undefined) {
             return null;
         }
 
-        let normalized =
+        const normalized =
             String(value)
                 .trim()
                 .replace(/\s/g, "")
                 .replace(",", ".");
 
-
         if (!normalized) {
             return null;
         }
 
+        const number = Number(normalized);
 
-        const number =
-            Number(normalized);
-
-
-        if (
-            !Number.isFinite(number) ||
-            number <= 0
-        ) {
+        if (!Number.isFinite(number) || number <= 0) {
             return null;
         }
-
 
         return number;
     }
@@ -131,15 +112,10 @@
     /* FORMAT NUMBER */
     /* ========================= */
 
-    function formatNumber(
-        value,
-        decimals = 2
-    ) {
-
+    function formatNumber(value, decimals = 2) {
         if (!Number.isFinite(value)) {
             return "—";
         }
-
 
         return value
             .toFixed(decimals)
@@ -152,7 +128,6 @@
     /* ========================= */
 
     function formatCarat(value) {
-
         return `${formatNumber(value, 3)} ct`;
     }
 
@@ -161,12 +136,8 @@
     /* AUTO HEIGHT */
     /* ========================= */
 
-    function getAutomaticHeight(
-        diameter
-    ) {
-
-        return diameter *
-            DEFAULT_HEIGHT_RATIO;
+    function getAutomaticHeight(diameter) {
+        return diameter * DEFAULT_HEIGHT_RATIO;
     }
 
 
@@ -175,68 +146,25 @@
     /* ========================= */
 
     function calculateCaratFromDimensions() {
-
         if (selectedCut !== "round") {
             return;
         }
 
-
-        const length =
-            parseNumber(
-                lengthInput.value
-            );
-
-        const width =
-            parseNumber(
-                widthInput.value
-            );
-
-
-        /*
-         * Пока нет двух основных размеров,
-         * ничего не считаем.
-         */
+        const length = parseNumber(lengthInput.value);
+        const width = parseNumber(widthInput.value);
 
         if (!length || !width) {
-
             caratResult.textContent = "—";
-
             standardSize.textContent = "—";
-
             return;
         }
 
-
-        /*
-         * Если высота введена вручную —
-         * используем её.
-         *
-         * Если нет —
-         * используем 60% от среднего
-         * диаметра.
-         */
-
-        let height =
-            parseNumber(
-                heightInput.value
-            );
-
+        let height = parseNumber(heightInput.value);
 
         if (!height) {
-
-            const diameter =
-                (length + width) / 2;
-
-            height =
-                getAutomaticHeight(
-                    diameter
-                );
+            const diameter = (length + width) / 2;
+            height = getAutomaticHeight(diameter);
         }
-
-
-        /*
-         * Основная формула.
-         */
 
         const carat =
             length *
@@ -244,59 +172,38 @@
             height *
             COEFFICIENT;
 
-
-        if (
-            !Number.isFinite(carat) ||
-            carat <= 0
-        ) {
-
+        if (!Number.isFinite(carat) || carat <= 0) {
             caratResult.textContent = "—";
-
             standardSize.textContent = "—";
-
             return;
         }
 
-
         /*
-         * Результат показываем
-         * с тремя знаками.
+         * Каратность всегда отображаем
+         * с тремя знаками после запятой.
          */
-
         const roundedCarat =
-            Math.round(
-                carat * 1000
-            ) / 1000;
-
+            Math.round(carat * 1000) / 1000;
 
         caratResult.textContent =
-            formatCarat(
-                roundedCarat
-            );
-
+            formatCarat(roundedCarat);
 
         /*
          * Синхронизируем поле каратности.
          */
-
         if (!updating) {
-
             updating = true;
 
             caratInput.value =
-                roundedCarat
-                    .toFixed(3);
+                roundedCarat.toFixed(3);
 
             updating = false;
         }
 
-
         /*
-         * Стандартный размер.
-         *
-         * Размеры всегда 2 знака.
+         * Размеры всегда отображаем
+         * с двумя знаками после запятой.
          */
-
         standardSize.textContent =
             `${formatNumber(length, 2)} × ` +
             `${formatNumber(width, 2)} × ` +
@@ -309,36 +216,24 @@
     /* ========================= */
 
     function calculateDimensionsFromCarat() {
-
         if (selectedCut !== "round") {
             return;
         }
 
-
         const carat =
-            parseNumber(
-                caratInput.value
-            );
-
+            parseNumber(caratInput.value);
 
         if (!carat) {
-
             standardSize.textContent = "—";
-
             caratResult.textContent = "—";
-
             return;
         }
 
-
         /*
-         * Обратная формула:
-         *
          * ct = D³ × 0.60 × 0.0061
          *
          * D = cbrt(
-         *     ct /
-         *     (0.60 × 0.0061)
+         *     ct / (0.60 × 0.0061)
          * )
          */
 
@@ -351,44 +246,23 @@
                 )
             );
 
-
         const height =
-            getAutomaticHeight(
-                diameter
-            );
-
+            getAutomaticHeight(diameter);
 
         if (
             !Number.isFinite(diameter) ||
             diameter <= 0
         ) {
-
             standardSize.textContent = "—";
-
             caratResult.textContent = "—";
-
             return;
         }
 
-
         const diameterText =
-            formatNumber(
-                diameter,
-                2
-            );
-
+            formatNumber(diameter, 2);
 
         const heightText =
-            formatNumber(
-                height,
-                2
-            );
-
-
-        /*
-         * Размеры записываем
-         * с двумя знаками.
-         */
+            formatNumber(height, 2);
 
         lengthInput.value =
             diameter.toFixed(2);
@@ -399,17 +273,10 @@
         heightInput.value =
             height.toFixed(2);
 
-
         standardSize.textContent =
             `${diameterText} × ` +
             `${diameterText} × ` +
             `${heightText} мм`;
-
-
-        /*
-         * Каратность показываем
-         * с тремя знаками.
-         */
 
         caratResult.textContent =
             formatCarat(carat);
@@ -417,33 +284,90 @@
 
 
     /* ========================= */
-    /* DIMENSION INPUT */
+    /* INPUT HANDLERS */
     /* ========================= */
 
     function onDimensionInput() {
-
         if (updating) {
             return;
         }
-
 
         calculateCaratFromDimensions();
     }
 
-
-    /* ========================= */
-    /* CARAT INPUT */
-    /* ========================= */
-
     function onCaratInput() {
-
         if (updating) {
             return;
         }
 
-
         calculateDimensionsFromCarat();
     }
+
+
+    /* ========================= */
+    /* KEYBOARD / FOCUS */
+    /* ========================= */
+
+    function hidePhoneKeyboard() {
+        const activeElement =
+            document.activeElement;
+
+        if (
+            activeElement instanceof
+            HTMLInputElement
+        ) {
+            activeElement.blur();
+        }
+    }
+
+
+    /*
+     * Нажатие вне поля завершает ввод
+     * и убирает фокус с input.
+     *
+     * Это позволяет iPhone закрыть
+     * системную клавиатуру, не закрывая
+     * само Mini App.
+     */
+    document.addEventListener(
+        "pointerdown",
+        (event) => {
+
+            const target = event.target;
+
+            if (!(target instanceof Element)) {
+                return;
+            }
+
+            if (!target.closest("input")) {
+                hidePhoneKeyboard();
+            }
+        }
+    );
+
+
+    /*
+     * Enter / Done на клавиатуре.
+     */
+    [
+        lengthInput,
+        widthInput,
+        heightInput,
+        caratInput
+    ].forEach((input) => {
+
+        input.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    hidePhoneKeyboard();
+                }
+            }
+        );
+
+    });
 
 
     /* ========================= */
@@ -453,19 +377,12 @@
     function resetCalculator() {
 
         lengthInput.value = "";
-
         widthInput.value = "";
-
         heightInput.value = "";
-
         caratInput.value = "";
 
-
-        caratResult.textContent =
-            "—";
-
-        standardSize.textContent =
-            "—";
+        caratResult.textContent = "—";
+        standardSize.textContent = "—";
     }
 
 
@@ -473,39 +390,28 @@
     /* CUT BUTTONS */
     /* ========================= */
 
-    cutButtons.forEach(
-        (button) => {
+    cutButtons.forEach((button) => {
 
-            button.addEventListener(
-                "click",
-                () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-                    if (button.disabled) {
-                        return;
-                    }
-
-
-                    cutButtons.forEach(
-                        (item) => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-                        }
-                    );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    selectedCut =
-                        button.dataset.cut;
+                if (button.disabled) {
+                    return;
                 }
-            );
-        }
-    );
+
+                cutButtons.forEach((item) => {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                selectedCut =
+                    button.dataset.cut;
+            }
+        );
+
+    });
 
 
     /* ========================= */
@@ -516,24 +422,13 @@
         "click",
         () => {
 
-            cutScreen.classList.add(
-                "hidden"
-            );
+            hidePhoneKeyboard();
 
-            calculatorScreen.classList.remove(
-                "hidden"
-            );
+            cutScreen.classList.add("hidden");
 
+            calculatorScreen.classList.remove("hidden");
 
-            /*
-             * Здесь ничего не подставляем.
-             * Поля должны оставаться пустыми.
-             */
-
-            window.scrollTo(
-                0,
-                0
-            );
+            window.scrollTo(0, 0);
         }
     );
 
@@ -546,19 +441,13 @@
         "click",
         () => {
 
-            calculatorScreen.classList.add(
-                "hidden"
-            );
+            hidePhoneKeyboard();
 
-            cutScreen.classList.remove(
-                "hidden"
-            );
+            calculatorScreen.classList.add("hidden");
 
+            cutScreen.classList.remove("hidden");
 
-            window.scrollTo(
-                0,
-                0
-            );
+            window.scrollTo(0, 0);
         }
     );
 
