@@ -7,44 +7,29 @@
 
     <title>Геммологический калькулятор</title>
 
-    <!-- Telegram Mini App -->
     <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
 <main class="app">
 
-    <!-- ========================= -->
-    <!-- ЭКРАН ВЫБОРА ОГРАНКИ -->
-    <!-- ========================= -->
-
+    <!-- Экран выбора огранки -->
     <section id="cut-screen" class="screen">
 
         <div class="header">
-
             <div class="header-icon">◆</div>
 
-            <div>
+            <div class="header-info">
                 <div class="header-title">Assistant Bot</div>
-                <div class="header-subtitle">
-                    Геммологический калькулятор
-                </div>
+                <div class="header-subtitle">Геммологический калькулятор</div>
             </div>
-
         </div>
 
         <div class="content">
+            <div class="step-label">01 · ОГРАНКА</div>
 
-            <div class="step-label">
-                01 · ОГРАНКА
-            </div>
-
-            <h1>
-                Выберите огранку
-            </h1>
+            <h1>Выберите огранку</h1>
 
             <p class="description">
                 Калькулятор определяет приблизительную каратность
@@ -53,122 +38,64 @@
             </p>
 
             <div class="cut-list">
-
-                <button
-                    class="cut-button active"
-                    data-cut="round"
-                    type="button"
-                >
+                <button class="cut-button active" data-cut="round" type="button">
                     <span>Круглая</span>
                     <small>Round Brilliant</small>
                 </button>
 
-                <button
-                    class="cut-button disabled"
-                    type="button"
-                    disabled
-                >
+                <button class="cut-button disabled" type="button" disabled>
                     <span>Овальная</span>
                     <small>Oval · скоро</small>
                 </button>
 
-                <button
-                    class="cut-button disabled"
-                    type="button"
-                    disabled
-                >
+                <button class="cut-button disabled" type="button" disabled>
                     <span>Кушон</span>
                     <small>Cushion · скоро</small>
                 </button>
 
-                <button
-                    class="cut-button disabled"
-                    type="button"
-                    disabled
-                >
+                <button class="cut-button disabled" type="button" disabled>
                     <span>Изумрудная</span>
                     <small>Emerald · скоро</small>
                 </button>
 
-                <button
-                    class="cut-button disabled"
-                    type="button"
-                    disabled
-                >
+                <button class="cut-button disabled" type="button" disabled>
                     <span>Принцесса</span>
                     <small>Princess · скоро</small>
                 </button>
 
-                <button
-                    class="cut-button disabled"
-                    type="button"
-                    disabled
-                >
+                <button class="cut-button disabled" type="button" disabled>
                     <span>Груша</span>
                     <small>Pear · скоро</small>
                 </button>
-
             </div>
 
-            <button
-                id="continue-button"
-                class="primary-button"
-                type="button"
-            >
+            <button id="continue-button" class="primary-button" type="button">
                 Продолжить →
             </button>
-
         </div>
-
     </section>
 
 
-    <!-- ========================= -->
-    <!-- ЭКРАН КАЛЬКУЛЯТОРА -->
-    <!-- ========================= -->
-
-    <section
-        id="calculator-screen"
-        class="screen hidden"
-    >
+    <!-- Экран калькулятора -->
+    <section id="calculator-screen" class="screen hidden">
 
         <div class="header">
-
-            <button
-                id="back-button"
-                class="header-back"
-                type="button"
-                aria-label="Назад"
-            >
+            <button id="back-button" class="header-back" type="button" aria-label="Назад">
                 ←
             </button>
 
-            <div class="header-icon">
-                ◆
+            <div class="header-icon">◆</div>
+
+            <div class="header-info">
+                <div class="header-title">Assistant Bot</div>
+                <div class="header-subtitle">Round Brilliant</div>
             </div>
-
-            <div>
-                <div class="header-title">
-                    Assistant Bot
-                </div>
-
-                <div class="header-subtitle">
-                    Round Brilliant
-                </div>
-            </div>
-
         </div>
 
-
         <div class="content">
+            <div class="step-label">02 · ROUND BRILLIANT</div>
 
-            <div class="step-label">
-                02 · ROUND BRILLIANT
-            </div>
-
-            <h1>
-                Размер ↔ карат
-            </h1>
+            <h1>Размер ↔ карат</h1>
 
             <p class="description">
                 Изменяйте размеры или каратность — второе значение
@@ -176,28 +103,16 @@
             </p>
 
 
-            <!-- ========================= -->
-            <!-- РАЗМЕРЫ -->
-            <!-- ========================= -->
-
+            <!-- Размеры камня -->
             <div class="card">
-
-                <h2>
-                    Размеры камня
-                </h2>
+                <h2>Размеры камня</h2>
 
                 <div class="dimensions-grid">
 
-                    <!-- Длина -->
-
                     <div class="field">
-
-                        <label for="length">
-                            Длина
-                        </label>
+                        <label for="length">Длина</label>
 
                         <div class="input-wrap">
-
                             <input
                                 id="length"
                                 type="number"
@@ -208,26 +123,15 @@
                                 placeholder="0,00"
                                 aria-label="Длина в миллиметрах"
                             >
-
-                            <span>
-                                мм
-                            </span>
-
+                            <span>мм</span>
                         </div>
-
                     </div>
 
 
-                    <!-- Ширина -->
-
                     <div class="field">
-
-                        <label for="width">
-                            Ширина
-                        </label>
+                        <label for="width">Ширина</label>
 
                         <div class="input-wrap">
-
                             <input
                                 id="width"
                                 type="number"
@@ -238,26 +142,15 @@
                                 placeholder="0,00"
                                 aria-label="Ширина в миллиметрах"
                             >
-
-                            <span>
-                                мм
-                            </span>
-
+                            <span>мм</span>
                         </div>
-
                     </div>
 
 
-                    <!-- Высота -->
-
                     <div class="field">
-
-                        <label for="height">
-                            Высота
-                        </label>
+                        <label for="height">Высота</label>
 
                         <div class="input-wrap">
-
                             <input
                                 id="height"
                                 type="number"
@@ -268,70 +161,38 @@
                                 placeholder="Авто"
                                 aria-label="Высота в миллиметрах"
                             >
-
-                            <span>
-                                мм
-                            </span>
-
+                            <span>мм</span>
                         </div>
-
                     </div>
 
                 </div>
 
-
                 <p class="hint">
                     Если высота не указана, используется 60% от диаметра.
                 </p>
-
             </div>
 
 
-            <!-- ========================= -->
-            <!-- РЕЗУЛЬТАТ -->
-            <!-- ========================= -->
+            <!-- Результат -->
+            <div class="card result-card" aria-live="polite">
+                <h2>Ориентировочная каратность</h2>
 
-            <div
-                class="card result-card"
-                aria-live="polite"
-            >
-
-                <h2>
-                    Ориентировочная каратность
-                </h2>
-
-                <div
-                    id="carat-result"
-                    class="result-value"
-                >
-                    —
-                </div>
+                <div id="carat-result" class="result-value">—</div>
 
                 <div class="result-caption">
                     примерное значение
                 </div>
-
             </div>
 
 
-            <!-- ========================= -->
-            <!-- КАРАТНОСТЬ -->
-            <!-- ========================= -->
-
+            <!-- Каратность -->
             <div class="card">
-
-                <h2>
-                    Каратность
-                </h2>
+                <h2>Каратность</h2>
 
                 <div class="field carat-field">
-
-                    <label for="carat">
-                        Вес
-                    </label>
+                    <label for="carat">Вес</label>
 
                     <div class="input-wrap large-input">
-
                         <input
                             id="carat"
                             type="number"
@@ -342,66 +203,37 @@
                             placeholder="0,000"
                             aria-label="Каратность"
                         >
-
-                        <span>
-                            ct
-                        </span>
-
+                        <span>ct</span>
                     </div>
-
                 </div>
-
 
                 <div class="inverse-result">
+                    <span>Стандартный размер:</span>
 
-                    <span>
-                        Стандартный размер:
-                    </span>
-
-                    <strong id="standard-size">
-                        —
-                    </strong>
-
+                    <strong id="standard-size">—</strong>
                 </div>
-
 
                 <p class="hint">
                     Расчёт выполняется по стандартной пропорции круглого
                     бриллианта с высотой 60% от диаметра.
                 </p>
-
             </div>
 
-
-            <!-- ========================= -->
-            <!-- ФОРМУЛА -->
-            <!-- ========================= -->
 
             <div class="formula">
                 L × W × H × 0,0061 = ct
             </div>
 
 
-            <!-- ========================= -->
-            <!-- СБРОС -->
-            <!-- ========================= -->
-
-            <button
-                id="reset-button"
-                class="secondary-button"
-                type="button"
-            >
+            <button id="reset-button" class="secondary-button" type="button">
                 Сбросить значения
             </button>
 
         </div>
-
     </section>
 
 </main>
 
-
 <script src="app.js"></script>
-
 </body>
 </html>
