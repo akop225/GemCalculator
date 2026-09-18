@@ -1,0 +1,377 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0b1724;
+    --panel: #101f2d;
+    --card: #162838;
+    --input: #0c1824;
+    --border: #29465b;
+    --text: #f3f7fa;
+    --muted: #9eafbd;
+    --accent: #3b91ee;
+    --accent-soft: #193c5f;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+}
+
+body {
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.screen {
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Header */
+
+.header {
+    min-height: 68px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border-bottom: 1px solid var(--border);
+    background: #0d1b29;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: #ffffff;
+    font-size: 21px;
+}
+
+.header-back {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.header-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.header-subtitle {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Content */
+
+.content {
+    padding: 22px 16px 28px;
+}
+
+.step-label {
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+}
+
+h1 {
+    margin: 0 0 9px;
+    color: var(--text);
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.description {
+    margin: 0 0 18px;
+    color: #c3d0da;
+    font-size: 15px;
+    line-height: 1.48;
+}
+
+/* Cut selection */
+
+.cut-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+.cut-button {
+    min-height: 64px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--card);
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.cut-button span {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cut-button small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.cut-button.active {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.cut-button.disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+}
+
+/* Buttons */
+
+.primary-button,
+.secondary-button {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 14px;
+    border-radius: 13px;
+    cursor: pointer;
+}
+
+.primary-button {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.secondary-button {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.header-back:focus-visible,
+.cut-button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Cards */
+
+.card {
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+}
+
+.card h2 {
+    margin: 0 0 14px;
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+/* Dimensions */
+
+.dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.input-wrap input {
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+    padding: 11px 39px 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--input);
+    color: #ffffff;
+    font-size: 18px;
+    outline: none;
+}
+
+.input-wrap input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+}
+
+.input-wrap input:focus {
+    border-color: var(--accent);
+}
+
+.input-wrap span {
+    position: absolute;
+    right: 10px;
+    bottom: 17px;
+    color: var(--muted);
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.hint {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.48;
+}
+
+/* Result */
+
+.result-card {
+    border-color: #2c6b99;
+    background: #143149;
+}
+
+.result-value {
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.result-caption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Carat */
+
+.carat-field {
+    max-width: 210px;
+}
+
+.large-input input {
+    font-size: 20px;
+}
+
+/* Inverse result */
+
+.inverse-result {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.inverse-result strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 16px;
+}
+
+/* Formula */
+
+.formula {
+    margin: 2px 0 0;
+    padding: 11px 4px;
+    color: #cbd8e2;
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Small screens */
+
+@media (max-width: 360px) {
+    .content {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .dimensions-grid {
+        gap: 6px;
+    }
+
+    .input-wrap input {
+        padding-left: 9px;
+        padding-right: 33px;
+        font-size: 16px;
+    }
+
+    .result-value {
+        font-size: 38px;
+    }
+}
